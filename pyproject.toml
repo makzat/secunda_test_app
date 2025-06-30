@@ -6,10 +6,73 @@ authors = ["Artoym Makushkin <a.makushkin@mts.ai>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.12"
 alembic = "^1.16.2"
+fastapi = {extras = ["all"], version = "^0.115.14"}
+uvicorn = {extras = ["standard"], version = "^0.30.6"}
+pydantic = "^2.8.2"
+pydantic-settings = "^2.4.0"
+asyncpg = "^0.29.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.34"}
 
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "7"
+black = "^24"
+isort = "^5"
+mypy = "^1"
+autoflake = "^2"
+flake8-quotes = "^3"
+flake8-blind-except = "^0"
+flake8-comprehensions = "^3"
+flake8-pep3101 = "^2"
+flake8-docstrings = "^1"
+flake8-module-name = "^0"
+flake8-string-format = "^0"
+flake8-print = "^5"
+flake8-builtins = "^2"
+flake8-bugbear = "^24"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+files = [
+  "app",
+]
+python_version = "3.12"
+
+plugins = [
+  "pydantic.mypy",
+  "sqlalchemy.ext.mypy.plugin",
+]
+
+
+[[tool.mypy.overrides]]
+module = [
+  "socketio",
+  "dill.*",
+  "requests", # XXX: there are stubs; install them in test build
+  "requests.*",
+  "urllib3",
+]
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ["py312"]
+color = true
+extend-exclude = """
+(
+    migration/
+    | .cache/
+)
+"""
