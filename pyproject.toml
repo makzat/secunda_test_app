@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "secunda-test-app"
+version = "0.1.0"
+description = "Test application"
+authors = ["Artoym Makushkin <a.makushkin@mts.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+alembic = "^1.16.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
