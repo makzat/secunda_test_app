@@ -2,7 +2,7 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
-from app.config import get_settings
+from backend.config import get_settings
 
 settings = get_settings()
 
@@ -44,7 +44,7 @@ class DatabaseHelper:
 
 
 db_helper = DatabaseHelper(
-    url=str(settings.db.url),
+    url=str(settings.db.get_pg_url()),
     echo=settings.db.echo,
     echo_pool=settings.db.echo_pool,
     pool_size=settings.db.pool_size,

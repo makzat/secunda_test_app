@@ -10,14 +10,18 @@ class RunConfig(BaseModel):
 
 
 class DatabaseConfig(BaseModel):
-    url: str = "postgresql+asyncpg://exchange_service:exchange_service@localhost:5432/exchange_service"
+    host: str = '127.0.0.1'
+    username: str = 'secunda'
+    password: str = 'secunda'
+    db: str = 'secunda'
+    port: int = 5432
     echo: bool = False
     echo_pool: bool = False
     pool_size: int = 50
     max_overflow: int = 10
 
     naming_convention: dict[str, str] = Field(
-        default_factory={
+        default_factory=lambda: {
             "ix": "ix_%(column_0_label)s",
             "uq": "uq_%(table_name)s_%(column_0_N_name)s",
             "ck": "ck_%(table_name)s_%(constraint_name)s",
@@ -26,18 +30,23 @@ class DatabaseConfig(BaseModel):
         }
     )
 
-
-class SourceRateUrl(BaseModel):
-    source_russian_bank: str = "https://cbr.ru/scripts/XML_daily.asp"
+    def get_pg_url(self) -> str:
+        url = 'postgresql+asyncpg://{username}:{password}@{host}:{port}/{db}'.format(
+            username=self.username,
+            password=self.password,
+            host=self.host,
+            port=self.port,
+            db=self.db,
+        )
+        return url
 
 
 class Settings(BaseSettings):
     run: RunConfig = RunConfig()
     db: DatabaseConfig = DatabaseConfig()
-    source_url: SourceRateUrl = SourceRateUrl()
 
     model_config = SettingsConfigDict(
-        env_file='.env',
+        env_file=['.env', '../.env'],
         env_file_encoding='utf-8',
         frozen=True,
         env_nested_delimiter='__',
