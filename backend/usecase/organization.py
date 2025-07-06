@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.models import Organization
 from backend.repository import OrganizationRepositoryProtocol
 from backend.schemas.organizations import Coordinates
-from backend.usecase.exceptions import NoDataOrganization, NoDataOrganizations
+from backend.usecase.exceptions import NoDataOrganization
 
 
 class OrganizationUseCaseProtocol(Protocol):

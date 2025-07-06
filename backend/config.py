@@ -1,11 +1,11 @@
 from functools import cache
 
-from pydantic import BaseModel, Field, PostgresDsn
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class RunConfig(BaseModel):
-    host: str = "0.0.0.0"
+    host: str = '0.0.0.0'
     port: int = 8000
 
 
@@ -27,11 +27,11 @@ class DatabaseConfig(BaseModel):
 
     naming_convention: dict[str, str] = Field(
         default_factory=lambda: {
-            "ix": "ix_%(column_0_label)s",
-            "uq": "uq_%(table_name)s_%(column_0_N_name)s",
-            "ck": "ck_%(table_name)s_%(constraint_name)s",
-            "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-            "pk": "pk_%(table_name)s",
+            'ix': 'ix_%(column_0_label)s',
+            'uq': 'uq_%(table_name)s_%(column_0_N_name)s',
+            'ck': 'ck_%(table_name)s_%(constraint_name)s',
+            'fk': 'fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s',
+            'pk': 'pk_%(table_name)s',
         }
     )
 

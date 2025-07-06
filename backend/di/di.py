@@ -9,12 +9,12 @@ from backend.usecase import OrganizationUseCasee, OrganizationUseCaseProtocol
 def get_database_repository(
     session=Depends(db_helper.session_getter_context_manager),
 ) -> OrganizationRepositoryProtocol:
-    return OrganizationRepository(session=session)
+    return OrganizationRepository(session=session)  # type: ignore
 
 
 def get_organization_usecase(
     repository=Depends(get_database_repository),
 ) -> OrganizationUseCaseProtocol:
-    return OrganizationUseCasee(
+    return OrganizationUseCasee(  # type: ignore
         repository=repository,
     )

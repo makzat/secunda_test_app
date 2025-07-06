@@ -41,8 +41,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 files = [
-  "app",
+  "backend",
 ]
+ignore_missing_imports = true
 python_version = "3.12"
 
 plugins = [
@@ -58,6 +59,7 @@ module = [
   "requests", # XXX: there are stubs; install them in test build
   "requests.*",
   "urllib3",
+  "sqlalchemy_utils",
 ]
 
 [tool.pydantic-mypy]
@@ -66,6 +68,20 @@ init_typed = true
 warn_required_dynamic_aliases = true
 warn_untyped_fields = true
 
+
+[tool.isort]
+extend_skip_glob = [
+  "migration",
+  ".cache",
+]
+
+profile = "black"
+py_version = 312
+line_length = 120
+force_grid_wrap = 2
+multi_line_output = 3
+include_trailing_comma = true
+color_output = true
 
 [tool.black]
 line-length = 120

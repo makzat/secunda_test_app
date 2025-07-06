@@ -4,9 +4,7 @@ from uuid import UUID
 from pydantic import (
     BaseModel,
     ConfigDict,
-    PlainSerializer,
     PlainValidator,
-    WithJsonSchema,
     field_serializer,
     field_validator,
 )

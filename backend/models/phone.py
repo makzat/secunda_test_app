@@ -1,7 +1,7 @@
 import uuid
 
 from sqlalchemy import VARCHAR, ForeignKey, text, types
-from sqlalchemy.orm import Mapped, Relationship, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.models.base import Base
 from backend.models.organizations import Organization
@@ -17,4 +17,6 @@ class Phone(Base):
     )
     number: Mapped[str] = mapped_column(VARCHAR(50), nullable=False)
     organization_id: Mapped[uuid.UUID] = mapped_column(types.Uuid, ForeignKey('organization.id'))
-    organization: Mapped['Organization'] = relationship('Organization', back_populates='phones')  # type: ignore # noqa: F821
+    organization: Mapped['Organization'] = relationship(  # type: ignore # noqa: F821
+        'Organization', back_populates='phones'
+    )

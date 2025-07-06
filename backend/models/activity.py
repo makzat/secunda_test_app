@@ -15,12 +15,12 @@ class OrganizationActivityAssociation(Base):
 
 
 class Activity(Base):
-    __tablename__ = "activity"
+    __tablename__ = 'activity'
 
     id: Mapped[uuid.UUID] = mapped_column(
         types.Uuid,
         primary_key=True,
-        server_default=text("gen_random_uuid()"),
+        server_default=text('gen_random_uuid()'),
     )
     name: Mapped[str] = mapped_column(
         VARCHAR(50),
@@ -32,4 +32,4 @@ class Activity(Base):
         secondary='organization_activity_association', back_populates='activities', viewonly=False
     )
 
-    __table_args__ = (CheckConstraint("nlevel(path) <= 3", name="check_ltree_depth"),)
+    __table_args__ = (CheckConstraint('nlevel(path) <= 3', name='check_ltree_depth'),)
