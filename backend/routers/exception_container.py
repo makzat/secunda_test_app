@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from pydantic_core._pydantic_core import ValidationError
+from sqlalchemy.exc import DBAPIError
 
 from backend.usecase.exceptions import NoDataOrganization, NoDataOrganizations
 
@@ -24,5 +25,9 @@ def exception_container(app: FastAPI) -> FastAPI:
     @app.exception_handler(ValidationError)
     async def pydantic_validation_exception_handeler(request: Request, exc: ValidationError) -> JSONResponse:
         return JSONResponse(status_code=status.HTTP_409_CONFLICT, content={"message": str(exc)})
+
+    @app.exception_handler(DBAPIError)
+    async def pydantic_validation_exception_handeler(request: Request, exc: DBAPIError) -> JSONResponse:
+        return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"message": str(exc)})
 
     return app

@@ -9,6 +9,11 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
+class SecurityConfig(BaseModel):
+    api_key_name: str = 'X-API-Key'
+    api_key: str = ''
+
+
 class DatabaseConfig(BaseModel):
     host: str = '127.0.0.1'
     username: str = 'secunda'
@@ -43,6 +48,7 @@ class DatabaseConfig(BaseModel):
 
 class Settings(BaseSettings):
     run: RunConfig = RunConfig()
+    security: SecurityConfig = SecurityConfig()
     db: DatabaseConfig = DatabaseConfig()
 
     model_config = SettingsConfigDict(

@@ -1,8 +1,7 @@
 from typing import Protocol
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.sql import func, select, cast
-from sqlalchemy import String
+from sqlalchemy.sql import func, select
 
 from backend.models import Activity, Office, Organization, OrganizationActivityAssociation
 from backend.schemas.organizations import Coordinates

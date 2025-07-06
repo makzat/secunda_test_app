@@ -1,14 +1,22 @@
 from typing import Annotated
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, field_validator, PlainValidator, PlainSerializer, WithJsonSchema, field_serializer
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    PlainSerializer,
+    PlainValidator,
+    WithJsonSchema,
+    field_serializer,
+    field_validator,
+)
 from sqlalchemy_utils import Ltree
-
 
 LtreeField = Annotated[
     Ltree,
     PlainValidator(lambda v: Ltree(v)),
 ]
+
 
 class Coordinates(BaseModel):
     latitude: float
@@ -37,7 +45,6 @@ class OrganizationSchema(BaseModel):
         for i in value:
             result.update(i.path.split('.'))
         return list(result)
-
 
     model_config = ConfigDict(from_attributes=True)
 

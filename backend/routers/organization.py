@@ -1,16 +1,17 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Security
 from pydantic import TypeAdapter
 
 from backend.di import get_organization_usecase
 from backend.schemas.organizations import Coordinates, OrganizationSchema, OrganizationsSchema
+from backend.security import api_key_header
 from backend.usecase.organization import OrganizationUseCaseProtocol
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter()
+router = APIRouter(dependencies=[Security(api_key_header)])
 
 
 @router.get(
